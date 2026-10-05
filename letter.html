@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>♡</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    background: #c58a9a;
+    font-family: Georgia, serif;
+    color: #651f35;
+    overflow-x: hidden;
+}
+
+/* ---------- ENVELOPE SCREEN ---------- */
+
+#envelopeScreen {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 25px;
+}
+
+.instruction {
+    color: #fff8f5;
+    font-family: cursive;
+    font-size: 25px;
+    margin-bottom: 25px;
+}
+
+.envelope {
+    position: relative;
+    width: min(88vw, 420px);
+    height: min(58vw, 275px);
+    background: #651f35;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 18px 40px rgba(70, 20, 40, .25);
+}
+
+/* envelope front */
+
+.envelope-front {
+    position: absolute;
+    inset: 0;
+    background: #651f35;
+    border-radius: 6px;
+    z-index: 3;
+}
+
+/* triangular bottom folds */
+
+.envelope-front::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-style: solid;
+    border-width: 0 0 150px 210px;
+    border-color: transparent transparent #7b2944 transparent;
+}
+
+.envelope-front::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border-style: solid;
+    border-width: 150px 0 0 210px;
+    border-color: transparent transparent transparent #7b2944;
+}
+
+/* flap */
+
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 50% solid transparent;
+    border-right: 50% solid transparent;
+    border-top: 145px solid #7d2945;
+    transform-origin: top center;
+    z-index: 5;
+    transition: transform 1s ease;
+}
+
+/* wax/seal */
+
+.seal {
+    position: absolute;
+    z-index: 6;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: #9d536d;
+    color: #fff5f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.18);
+    transition: opacity .5s ease;
+}
+
+/* words on envelope */
+
+.envelope-text {
+    position: absolute;
+    z-index: 7;
+    width: 100%;
+    text-align: center;
+    bottom: 25px;
+    color: #fff5f4;
+    font-family: cursive;
+    font-size: 25px;
+}
+
+/* ---------- OPEN ANIMATION ---------- */
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+}
+
+.envelope.open .seal {
+    opacity: 0;
+}
+
+.envelope.open .envelope-text {
+    opacity: 0;
+}
+
+/* ---------- LETTER ---------- */
+
+#letterScreen {
+    display: none;
+    min-height: 100vh;
+    padding: 30px 17px 50px;
+}
+
+.letter {
+    max-width: 680px;
+    margin: 0 auto;
+    background: #fff8ef;
+    padding: 38px 30px;
+    border-radius: 5px;
+    box-shadow: 0 15px 40px rgba(70,20,40,.2);
+    position: relative;
+    animation: letterAppear 1.2s ease;
+}
+
+.letter h1 {
+    font-family: cursive;
+    font-size: 42px;
+    text-align: center;
+    color: #651f35;
+    margin-top: 0;
+}
+
+.letter p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.greeting,
+.closing {
+    font-family: cursive;
+    font-size: 28px !important;
+    color: #7b2944;
+}
+
+.highlight {
+    text-align: center;
+    font-family: cursive;
+    font-size: 32px;
+    color: #7b2944;
+    margin: 30px 0;
+}
+
+@keyframes letterAppear {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* little decorations */
+
+.star {
+    position: fixed;
+    color: #fff0f3;
+    font-size: 22px;
+    animation: float 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.s1 { top: 12%; left: 10%; }
+.s2 { top: 22%; right: 10%; animation-delay: 1s; }
+.s3 { bottom: 15%; left: 8%; animation-delay: 2s; }
+.s4 { bottom: 9%; right: 12%; animation-delay: .5s; }
+
+@keyframes float {
+    0%,100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ENVELOPE -->
+
+<div id="envelopeScreen">
+
+    <div class="instruction">
+        now this you can open ;)
+    </div>
+
+    <div class="envelope" onclick="openLetter()">
+
+        <div class="flap"></div>
+
+        <div class="envelope-front"></div>
+
+        <div class="seal">
+            ♡
+        </div>
+
+        <div class="envelope-text">
+            now this you can open ;)
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- LETTER -->
+
+<div id="letterScreen">
+
+    <div class="star s1">✦</div>
+    <div class="star s2">♡</div>
+    <div class="star s3">✧</div>
+    <div class="star s4">✦</div>
+
+    <article class="letter">
+
+        <h1>hiii babyyy,</h1>
+
+        <p>
+        I know that was a lot, BUT YOU DID IT. At least I hope this is you and not some rando,
+        because if it is… heh.
+        </p>
+
+        <p>
+        If this has reached my targeted audience…
+        <strong>HAPPY BIRTHDAY!!! OMGOMGOMG, YOU’RE SIXTEEN!!!</strong>
+        </p>
+
+        <p>
+        Sourishhh, you truly are one of my biggest blessings. You’ve become such an important
+        person in my life, and I’m so grateful that I get to celebrate another birthday with you.
+        There are so many things I’ve picked up from you without even realizing it. You’ve taught
+        me how to stop caring so much about what other people think and how to actually have
+        confidence in myself.
+        </p>
+
+        <p>
+        And on top of being my boyfriend, you genuinely are one of the best friends I could ever
+        ask for. You’ve had such a huge impact on me, and I only hope I’ve had even half of that
+        same impact on you.
+        </p>
+
+        <p>
+        Even on the days we fight, all I can think about is you. Like yeah, you piss me off and I
+        become passive-aggressive for like six billion hours, but five minutes later I’m already
+        like, “okay but what is he doing right nowww?” And then somehow I end up missing you even
+        though I was literally just mad at you. it’s actually very annoying… ;))
+        </p>
+
+        <div class="highlight">
+            I love you so much ♡
+        </div>
+
+        <p>
+        I’m so incredibly grateful for you. I hope you get everything you wish for and more
+        because you deserve soooo much.
+        </p>
+
+        <p class="closing">
+            happy 16th birthday, my lovee!! 🎂
+        </p>
+
+    </article>
+
+</div>
+
+
+<script>
+
+function openLetter() {
+
+    const envelope = document.querySelector(".envelope");
+
+    envelope.classList.add("open");
+
+    setTimeout(function() {
+
+        document.getElementById("envelopeScreen").style.display = "none";
+
+        document.getElementById("letterScreen").style.display = "block";
+
+        window.scrollTo(0, 0);
+
+    }, 1100);
+
+}
+
+</script>
+
+</body>
+</html>
