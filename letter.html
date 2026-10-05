@@ -1,44 +1,662 @@
-<article class="letter">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <h1>hiii babyyy,</h1>
+<title>♡</title>
 
-    <p>
-        I know that was a lot, BUT YOU DID IT. At least I hope this is you and not some rando,
-        because if it is… heh.
-    </p>
+<!-- EB Garamond -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <p>
-        If this has reached my targeted audience… HAPPY BIRTHDAY!!! OMGOMGOMG, YOU’RE SIXTEEN!!!
-    </p>
+<style>
 
-    <p>
-        Sourishhh, you truly are one of my biggest blessings. You’ve become such an important
-        person in my life, and I’m so grateful that I get to celebrate another birthday with you.
-        There are so many things I’ve picked up from you without even realizing it. You’ve taught
-        me how to stop caring so much about what other people think and how to actually have
-        confidence in myself.
-    </p>
+* {
+    box-sizing: border-box;
+}
 
-    <p>
-        and on top of being my boyfriend, you genuinely are one of the best friends I could ever
-        ask for. You’ve had such a huge impact on me, and I only hope I’ve had even half of that
-        same impact on you.
-    </p>
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
 
-    <p>
-        Even on the days we fight, all I can think about is you. Like yeah, you piss me off and
-        I become passive-aggressive for like six billion hours, but five minutes later I’m already
-        like, “okay but what is he doing right nowww?” And then somehow I end up missing you even
-        though I was literally just mad at you. it’s actually very annoying… ;))
-    </p>
+body {
+    background: #c58a9a;
+    color: #651f35;
+    font-family: "EB Garamond", Georgia, serif;
+    overflow-x: hidden;
+}
 
-    <p>
-        I love you so much, and I’m so incredibly grateful for you. I hope you get everything you
-        wish for and more because you deserve soooo much.
-    </p>
 
-    <p class="closing">
-        happy 16th birthday, my lovee!! 🎂
-    </p>
+/* =========================
+   ENVELOPE SCREEN
+========================= */
 
-</article>
+#envelopeScreen {
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 25px;
+}
+
+
+/* TEXT ABOVE ENVELOPE */
+
+.instruction {
+    color: #fffaf7;
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 23px;
+    margin-bottom: 28px;
+    letter-spacing: .3px;
+}
+
+
+/* WHITE AURA */
+
+.envelope-glow {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.envelope-glow::before {
+    content: "";
+
+    position: absolute;
+
+    width: 440px;
+    height: 330px;
+
+    background: rgba(255, 255, 255, .78);
+
+    border-radius: 50%;
+
+    filter: blur(55px);
+
+    z-index: 0;
+}
+
+
+/* ENVELOPE */
+
+.envelope {
+    position: relative;
+
+    width: min(88vw, 430px);
+    height: min(58vw, 280px);
+
+    background: #651f35;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 20px 40px rgba(65, 20, 35, .28);
+
+    z-index: 2;
+
+    perspective: 1000px;
+}
+
+
+/* LETTER INSIDE */
+
+.paper {
+    position: absolute;
+
+    width: 82%;
+    height: 85%;
+
+    left: 9%;
+    top: 8%;
+
+    background: #fff8ef;
+
+    z-index: 2;
+
+    transition: transform 1.2s ease;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+
+
+/* ENVELOPE FRONT */
+
+.envelope-front {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 75%;
+
+    background: #651f35;
+
+    z-index: 4;
+
+    overflow: hidden;
+}
+
+
+/* LEFT FOLD */
+
+.envelope-front::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 0;
+    height: 0;
+
+    border-style: solid;
+
+    border-width:
+        0
+        0
+        140px
+        215px;
+
+    border-color:
+        transparent
+        transparent
+        #7a2944
+        transparent;
+}
+
+
+/* RIGHT FOLD */
+
+.envelope-front::after {
+    content: "";
+
+    position: absolute;
+
+    right: 0;
+    bottom: 0;
+
+    width: 0;
+    height: 0;
+
+    border-style: solid;
+
+    border-width:
+        140px
+        0
+        0
+        215px;
+
+    border-color:
+        transparent
+        transparent
+        transparent
+        #7a2944;
+}
+
+
+/* TOP FLAP */
+
+.flap {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: #762741;
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        50% 55%
+    );
+
+    transform-origin: top center;
+
+    transition:
+        transform 1s ease;
+
+    z-index: 6;
+}
+
+
+/* WORDS ON ENVELOPE */
+
+.envelope-text {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    bottom: 28px;
+
+    text-align: center;
+
+    color: #fff8f5;
+
+    font-family: "EB Garamond", Georgia, serif;
+
+    font-size: 24px;
+
+    z-index: 8;
+
+    transition: opacity .4s ease;
+}
+
+
+/* SEAL */
+
+.seal {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 62px;
+    height: 62px;
+
+    border-radius: 50%;
+
+    background: #a34e69;
+
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 27px;
+
+    z-index: 9;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.2);
+
+    transition: opacity .4s ease;
+}
+
+
+/* =========================
+   OPEN ANIMATION
+========================= */
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+}
+
+.envelope.open .paper {
+    transform: translateY(-125px);
+}
+
+.envelope.open .seal {
+    opacity: 0;
+}
+
+.envelope.open .envelope-text {
+    opacity: 0;
+}
+
+
+/* =========================
+   LETTER PAGE
+========================= */
+
+#letterScreen {
+    display: none;
+
+    min-height: 100vh;
+
+    padding:
+        35px
+        17px
+        60px;
+}
+
+
+/* LETTER */
+
+.letter {
+    width: min(680px, 100%);
+
+    margin: 0 auto;
+
+    background: #fff8ef;
+
+    padding:
+        45px
+        clamp(25px, 7vw, 55px);
+
+    border-radius: 4px;
+
+    box-shadow:
+        0 18px 45px rgba(70,20,40,.22);
+
+    animation:
+        letterAppear 1.2s ease;
+}
+
+
+/* LETTER TITLE */
+
+.letter h1 {
+    font-family: "EB Garamond", Georgia, serif;
+
+    font-weight: 500;
+
+    font-size:
+        clamp(35px, 8vw, 48px);
+
+    text-align: center;
+
+    color: #651f35;
+
+    margin:
+        0 0 30px;
+}
+
+
+/* PARAGRAPHS */
+
+.letter p {
+    font-family: "EB Garamond", Georgia, serif;
+
+    font-size: 19px;
+
+    line-height: 1.65;
+
+    margin:
+        0 0 22px;
+}
+
+
+/* HIGHLIGHT */
+
+.highlight {
+    text-align: center;
+
+    font-family: "EB Garamond", Georgia, serif;
+
+    font-size: 36px;
+
+    font-weight: 500;
+
+    color: #7b2944;
+
+    margin:
+        35px 0;
+}
+
+
+/* CLOSING */
+
+.closing {
+    font-size: 27px !important;
+
+    text-align: left;
+}
+
+
+/* LETTER ANIMATION */
+
+@keyframes letterAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(45px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================
+   FLOATING DECORATIONS
+========================= */
+
+.star {
+    position: fixed;
+
+    color: rgba(255,255,255,.8);
+
+    font-size: 23px;
+
+    pointer-events: none;
+
+    animation:
+        float 4s ease-in-out infinite;
+}
+
+.s1 {
+    top: 12%;
+    left: 10%;
+}
+
+.s2 {
+    top: 20%;
+    right: 10%;
+
+    animation-delay: 1s;
+}
+
+.s3 {
+    bottom: 15%;
+    left: 8%;
+
+    animation-delay: 2s;
+}
+
+.s4 {
+    bottom: 9%;
+    right: 12%;
+
+    animation-delay: .5s;
+}
+
+
+@keyframes float {
+
+    0%, 100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(-8px);
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     ENVELOPE
+========================= -->
+
+<div id="envelopeScreen">
+
+    <div class="instruction">
+        now this you can open ;)
+    </div>
+
+
+    <div class="envelope-glow">
+
+        <div
+            class="envelope"
+            onclick="openLetter()"
+        >
+
+            <!-- Paper inside envelope -->
+
+            <div class="paper"></div>
+
+
+            <!-- Front of envelope -->
+
+            <div class="envelope-front"></div>
+
+
+            <!-- Opening flap -->
+
+            <div class="flap"></div>
+
+
+            <!-- Seal -->
+
+            <div class="seal">
+                ♡
+            </div>
+
+
+            <!-- Message -->
+
+            <div class="envelope-text">
+                now this you can open ;)
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     LETTER
+========================= -->
+
+<div id="letterScreen">
+
+    <div class="star s1">✦</div>
+    <div class="star s2">✧</div>
+    <div class="star s3">♡</div>
+    <div class="star s4">✦</div>
+
+
+    <article class="letter">
+
+        <h1>
+            hiii babyyy,
+        </h1>
+
+
+        <p>
+            I know that was a lot, BUT YOU DID IT.
+            At least I hope this is you and not some rando,
+            because if it is… heh.
+        </p>
+
+
+        <p>
+            If this has reached my targeted audience…
+            <strong>HAPPY BIRTHDAY!!! OMGOMGOMG, YOU’RE SIXTEEN!!!</strong>
+        </p>
+
+
+        <p>
+            Sourishhh, you truly are one of my biggest blessings.
+            You’ve become such an important person in my life,
+            and I’m so grateful that I get to celebrate another
+            birthday with you. There are so many things I’ve
+            picked up from you without even realizing it.
+            You’ve taught me how to stop caring so much about
+            what other people think and how to actually have
+            confidence in myself.
+        </p>
+
+
+        <p>
+            And on top of being my boyfriend, you genuinely are
+            one of the best friends I could ever ask for.
+            You’ve had such a huge impact on me, and I only hope
+            I’ve had even half of that same impact on you.
+        </p>
+
+
+        <p>
+            Even on the days we fight, all I can think about is you.
+            Like yeah, you piss me off and I become passive-aggressive
+            for like six billion hours, but five minutes later I’m
+            already like, “okay but what is he doing right nowww?”
+            And then somehow I end up missing you even though I was
+            literally just mad at you. it’s actually very annoying… ;))
+        </p>
+
+        <p>
+            I love you so much! I’m so incredibly grateful for you. I hope you get
+            everything you wish for and more because you deserve
+            soooo much.
+        </p>
+
+
+        <p class="closing">
+            happy 16th birthday, my lovee!! 🎂
+        </p>
+
+    </article>
+
+</div>
+
+
+
+<script>
+
+function openLetter() {
+
+    const envelope =
+        document.querySelector(".envelope");
+
+    envelope.classList.add("open");
+
+
+    setTimeout(function() {
+
+        document.getElementById(
+            "envelopeScreen"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "letterScreen"
+        ).style.display = "block";
+
+
+        window.scrollTo(0, 0);
+
+    }, 1200);
+
+}
+
+</script>
+
+
+</body>
+</html>
